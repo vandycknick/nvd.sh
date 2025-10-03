@@ -679,9 +679,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/lib-storage@npm:^3.901.0":
-  version: 3.901.0
-  resolution: "@aws-sdk/lib-storage@npm:3.901.0"
+"@aws-sdk/lib-storage@npm:^3.903.0":
+  version: 3.903.0
+  resolution: "@aws-sdk/lib-storage@npm:3.903.0"
   dependencies:
     "@smithy/abort-controller": "npm:^4.2.0"
     "@smithy/middleware-endpoint": "npm:^4.3.0"
@@ -692,7 +692,7 @@ __metadata:
     tslib: "npm:^2.6.2"
   peerDependencies:
     "@aws-sdk/client-s3": ^3.901.0
-  checksum: 10/049aabe458f06d0e730a77f0d8263eb64101d0b9c58347291f5df8c7b02073fec6b811563340010f3f9a2772e96deec7b01181124fae303cb6cbb10fc15e705f
+  checksum: 10/867c9de9d1691b8b3b6276e3fc61399e63abd70eb8f84a865525242d5f7486b2fb07c61a1e8e84a262148a25851bf5d977f623938cbb7fa12feb930876f570de
   languageName: node
   linkType: hard
 
@@ -2877,7 +2877,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-cloudfront": "npm:^3.901.0"
     "@aws-sdk/client-s3": "npm:^3.901.0"
-    "@aws-sdk/lib-storage": "npm:^3.901.0"
+    "@aws-sdk/lib-storage": "npm:^3.903.0"
     "@nvd/tsconfig": "npm:^1.0.0"
     "@types/mime-types": "npm:^3.0.1"
     "@types/node": "npm:^24.6.2"
@@ -11007,7 +11007,7 @@ __metadata:
     tw-animate-css: "npm:^1.4.0"
     typescript: "npm:^5.9.3"
     typescript-eslint: "npm:^8.45.0"
-    vite: "npm:^7.1.8"
+    vite: "npm:^7.1.9"
   languageName: unknown
   linkType: soft
 
@@ -14288,9 +14288,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^7.1.8":
-  version: 7.1.8
-  resolution: "vite@npm:7.1.8"
+"vite@npm:^7.1.9":
+  version: 7.1.9
+  resolution: "vite@npm:7.1.9"
   dependencies:
     esbuild: "npm:^0.25.0"
     fdir: "npm:^6.5.0"
@@ -14339,7 +14339,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/76b71d0f97204a1490fe7c0c630850f2aec36c4896e145b41cf31fa9360f41271452942ed036b1af8e0e18e17e07a09352f3e2c24d1654d668f0ad97ef54fe9f
+  checksum: 10/361b8dfea414233927761fdb63ec38c2cc4630007efc33a7a02ef9a5c033552c41b2e95f7fcc9acf427da5a3cf194d62dc5f0853bc31e940a13528d0fb180132
   languageName: node
   linkType: hard
 
