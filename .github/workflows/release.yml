@@ -79,7 +79,6 @@ jobs:
       domain: staging.nvd.sh
     secrets:
       AWS_ROLE_NAME: ${{ secrets.AWS_ROLE_NAME }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   infra-init:
     name: Init Infrastructure
@@ -126,7 +125,6 @@ jobs:
     secrets:
       AWS_TERRAFORM_ROLE: ${{ secrets.AWS_TERRAFORM_ROLE }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   pre-check:
     name: Pre Checks
@@ -154,7 +152,6 @@ jobs:
     secrets:
       AWS_TERRAFORM_ROLE: ${{ secrets.AWS_TERRAFORM_ROLE }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   app-deploy-prod:
     name: App Production
@@ -167,4 +164,3 @@ jobs:
       domain: nvd.sh
     secrets:
       AWS_ROLE_NAME: ${{ secrets.AWS_ROLE_NAME }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -12,8 +12,6 @@ on:
     secrets:
       AWS_ROLE_NAME:
         required: true
-      GITHUB_TOKEN:
-        required: true
 jobs:
   deploy:
     name: Deploy
