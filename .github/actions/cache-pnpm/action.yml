@@ -1,12 +1,15 @@
 name: Cache pnpm
 description: Cache pnpm packages
-
+inputs:
+  shell:
+    required: false
+    default: 'bash'
 runs:
   using: "composite"
   steps:
     - name: Get pnpm cache directory
       id: pnpm-cache-dir
-      shell: bash
+      shell: ${{ inputs.shell }}
       run: echo "dir=$(pnpm store path --silent)" >> ${GITHUB_OUTPUT}
 
     - uses: actions/cache@v4
