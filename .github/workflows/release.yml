@@ -68,18 +68,18 @@ jobs:
           name: app-web
           path: ./dist
 
-  # app-deploy-staging:
-  #   name: App Staging
-  #   uses: ./.github/workflows/web-deploy.yml
-  #   needs:
-  #     - infra-init
-  #     - app-build
-  #   with:
-  #     environment: staging
-  #     node-version: 24
-  #     domain: staging.nvd.sh
-  #   secrets:
-  #     AWS_ROLE_NAME: ${{ secrets.AWS_ROLE_NAME }}
+  app-deploy-staging:
+    name: App Staging
+    uses: ./.github/workflows/web-deploy.yml
+    needs:
+      - infra-init
+      - app-build
+    with:
+      environment: staging
+      domain: staging.nvd.sh
+    secrets:
+      AWS_ROLE_NAME: ${{ secrets.AWS_ROLE_NAME }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   infra-init:
     name: Init Infrastructure
@@ -115,56 +115,56 @@ jobs:
         env:
           TF_WORKSPACE: staging
 
-  # infra-deploy-staging:
-  #   name: Infra Staging
-  #   uses: ./.github/workflows/terraform-deploy.yml
-  #   needs:
-  #     - infra-init
-  #   with:
-  #     environment: staging
-  #     terraform-version: 1.12.2
-  #     working-directory: ./infra
-  #   secrets:
-  #     AWS_TERRAFORM_ROLE: ${{ secrets.AWS_TERRAFORM_ROLE }}
-  #     CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-  #
-  # pre-check:
-  #   name: Pre Checks
-  #   runs-on: ubuntu-latest
-  #   environment: approval
-  #   needs:
-  #     - infra-deploy-staging
-  #     - app-deploy-staging
-  #   steps:
-  #     - name: Deployment start timing
-  #       id: deploy_start
-  #       run: |
-  #         echo "deploy_start_time=$(date +"%Y-%m-%d %H:%M:%S")"
-  #
-  # infra-deploy-prod:
-  #   name: Infra Production
-  #   uses: ./.github/workflows/terraform-deploy.yml
-  #   needs:
-  #     - infra-deploy-staging
-  #     - app-deploy-staging
-  #     - pre-check
-  #   with:
-  #     environment: production
-  #     terraform-version: 1.12.2
-  #     working-directory: ./infra
-  #   secrets:
-  #     AWS_TERRAFORM_ROLE: ${{ secrets.AWS_TERRAFORM_ROLE }}
-  #     CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-  #
-  # app-deploy-prod:
-  #   name: App Production
-  #   uses: ./.github/workflows/web-deploy.yml
-  #   needs:
-  #     - infra-deploy-prod
-  #     - pre-check
-  #   with:
-  #     environment: production
-  #     node-version: 24
-  #     domain: nvd.sh
-  #   secrets:
-  #     AWS_ROLE_NAME: ${{ secrets.AWS_ROLE_NAME }}
+  infra-deploy-staging:
+    name: Infra Staging
+    uses: ./.github/workflows/terraform-deploy.yml
+    needs:
+      - infra-init
+    with:
+      environment: staging
+      working-directory: ./infra
+    secrets:
+      AWS_TERRAFORM_ROLE: ${{ secrets.AWS_TERRAFORM_ROLE }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  pre-check:
+    name: Pre Checks
+    runs-on: ubuntu-latest
+    environment: approval
+    needs:
+      - infra-deploy-staging
+      - app-deploy-staging
+    steps:
+      - name: Deployment start timing
+        id: deploy_start
+        run: |
+          echo "deploy_start_time=$(date +"%Y-%m-%d %H:%M:%S")"
+
+  infra-deploy-prod:
+    name: Infra Production
+    uses: ./.github/workflows/terraform-deploy.yml
+    needs:
+      - infra-deploy-staging
+      - app-deploy-staging
+      - pre-check
+    with:
+      environment: production
+      working-directory: ./infra
+    secrets:
+      AWS_TERRAFORM_ROLE: ${{ secrets.AWS_TERRAFORM_ROLE }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  app-deploy-prod:
+    name: App Production
+    uses: ./.github/workflows/web-deploy.yml
+    needs:
+      - infra-deploy-prod
+      - pre-check
+    with:
+      environment: production
+      domain: nvd.sh
+    secrets:
+      AWS_ROLE_NAME: ${{ secrets.AWS_ROLE_NAME }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

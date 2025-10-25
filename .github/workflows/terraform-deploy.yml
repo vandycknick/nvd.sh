@@ -1,10 +1,6 @@
 on:
   workflow_call:
     inputs:
-      terraform-version:
-        required: true
-        type: string
-
       environment:
         required: true
         type: string
@@ -19,6 +15,8 @@ on:
         required: true
       CLOUDFLARE_API_TOKEN:
         required: true
+      GITHUB_TOKEN:
+        required: true
 jobs:
   deploy:
     name: Deploy
@@ -30,10 +28,10 @@ jobs:
         with:
           fetch-depth: 1
 
-      - id: setup-terraform
-        uses: ./.github/actions/setup-terraform
+      - name: Setup nix
+        uses: ./.github/actions/setup-nix
         with:
-          terraform-version: ${{ inputs.terraform-version }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Assume AWS Role
         uses: aws-actions/configure-aws-credentials@v5
@@ -42,12 +40,14 @@ jobs:
           role-to-assume: ${{ secrets.AWS_TERRAFORM_ROLE }}
 
       - name: Terraform Init
+        shell: 'nix develop -c bash -e {0}'
         run: terraform init
         working-directory: ${{ inputs.working-directory }}
         env:
           TF_WORKSPACE: ${{ inputs.environment }}
 
       - name: Terraform Plan
+        shell: 'nix develop -c bash -e {0}'
         run: terraform plan -out $HOME/plan
         working-directory: ${{ inputs.working-directory }}
         env:
@@ -56,6 +56,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Terraform Apply
+        shell: 'nix develop -c bash -e {0}'
         run: terraform apply $HOME/plan
         working-directory: ${{ inputs.working-directory }}
         env:

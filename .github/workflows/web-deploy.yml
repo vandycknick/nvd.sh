@@ -1,10 +1,6 @@
 on:
   workflow_call:
     inputs:
-      node-version:
-        required: true
-        type: string
-
       environment:
         required: true
         type: string
@@ -15,6 +11,8 @@ on:
 
     secrets:
       AWS_ROLE_NAME:
+        required: true
+      GITHUB_TOKEN:
         required: true
 jobs:
   deploy:
@@ -27,10 +25,15 @@ jobs:
         with:
           fetch-depth: 1
 
-      - id: setup-node
-        uses: ./.github/actions/setup-node
+      - name: Setup nix
+        uses: ./.github/actions/setup-nix
         with:
-          node-version: ${{ inputs.node-version }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup pnpm cache
+        uses: ./.github/actions/cache-pnpm
+        with:
+          shell: 'nix shell nixpkgs/nixos-25.05#pnpm -c bash -e {0}'
 
       - name: Download blog artifact
         uses: actions/download-artifact@v5
@@ -45,6 +48,7 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_NAME }}
 
       - name: Deploy
+        shell: 'nix develop -c bash -e {0}'
         run: |
           PREFIX=$(git rev-parse --short "$GITHUB_SHA")
-          yarn workspace @nvd.sh/deployer execute --domain ${{ inputs.domain }} --prefix "$PREFIX" --directory ${{ github.workspace }}/dist
+          pnpm --filter @nvd.sh/deployer execute --domain ${{ inputs.domain }} --prefix "$PREFIX" --directory ${{ github.workspace }}/dist
