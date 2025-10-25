@@ -59,6 +59,7 @@ jobs:
           shell: 'nix shell nixpkgs/nixos-25.05#pnpm -c bash -e {0}'
 
       - name: Build blog
+        shell: 'nix develop -c bash -e {0}'
         run: make build
 
       - name: Upload App
@@ -79,40 +80,41 @@ jobs:
   #     domain: staging.nvd.sh
   #   secrets:
   #     AWS_ROLE_NAME: ${{ secrets.AWS_ROLE_NAME }}
-  #
-  # infra-init:
-  #   name: Init Infrastructure
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Clone Repository
-  #       uses: actions/checkout@v5
-  #       with:
-  #         fetch-depth: 1
-  #
-  #     - id: setup-terraform
-  #       uses: ./.github/actions/setup-terraform
-  #       with:
-  #         terraform-version: 1.12.2
-  #         tflint-version: v0.52.0
-  #
-  #     - name: Configure AWS Credentials
-  #       uses: aws-actions/configure-aws-credentials@v5
-  #       with:
-  #         aws-region: ${{ vars.AWS_REGION }}
-  #         role-to-assume: ${{ secrets.AWS_TERRAFORM_ROLE }}
-  #
-  #     - name: Init Workspace
-  #       run: make infra.init
-  #       env:
-  #         # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md#avoiding-rate-limiting
-  #         GITHUB_TOKEN: ${{ github.token }}
-  #         TF_WORKSPACE: staging
-  #
-  #     - name: Validate
-  #       run: make check.infra
-  #       env:
-  #         TF_WORKSPACE: staging
-  #
+
+  infra-init:
+    name: Init Infrastructure
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+
+      - name: Setup nix
+        uses: ./.github/actions/setup-nix
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_TERRAFORM_ROLE }}
+
+      - name: Init Workspace
+        shell: 'nix develop -c bash -e {0}'
+        run: make infra.init
+        env:
+          # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md#avoiding-rate-limiting
+          GITHUB_TOKEN: ${{ github.token }}
+          TF_WORKSPACE: staging
+
+      - name: Validate
+        shell: 'nix develop -c bash -e {0}'
+        run: make check.infra
+        env:
+          TF_WORKSPACE: staging
+
   # infra-deploy-staging:
   #   name: Infra Staging
   #   uses: ./.github/workflows/terraform-deploy.yml
