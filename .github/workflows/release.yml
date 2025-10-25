@@ -31,7 +31,7 @@ jobs:
       - name: Setup pnpm cache
         uses: ./.github/actions/cache-pnpm
         with:
-          shell: 'NO_SHELL_HOOK=1 nix develop -c bash -e {0}'
+          shell: 'nix shell nixpkgs/nixos-25.05#pnpm -c bash -e {0}'
 
       - name: Lint Code
         shell: 'nix develop -c bash -e {0}'
@@ -56,7 +56,7 @@ jobs:
       - name: Setup pnpm cache
         uses: ./.github/actions/cache-pnpm
         with:
-          shell: 'NO_SHELL_HOOK=1 nix develop -c bash -e {0}'
+          shell: 'nix shell nixpkgs/nixos-25.05#pnpm -c bash -e {0}'
 
       - name: Build blog
         run: make build
