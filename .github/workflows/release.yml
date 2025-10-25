@@ -48,10 +48,15 @@ jobs:
   #       with:
   #         fetch-depth: 1
   #
-  #     - id: setup-node
-  #       uses: ./.github/actions/setup-node
+  #     - name: Setup nix
+  #       uses: ./.github/actions/setup-nix
   #       with:
-  #         node-version: 24
+  #         github_token: ${{ secrets.GITHUB_TOKEN }}
+  #
+  #     - name: Setup pnpm cache
+  #       uses: ./.github/actions/cache-pnpm
+  #       with:
+  #         shell: 'nix develop -c bash -e {0}'
   #
   #     - name: Build blog
   #       run: make build
