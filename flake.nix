@@ -38,6 +38,7 @@
               pkgs.tflint
             ];
             shellHook = ''
+              [ -n "$NO_SHELL_HOOK" ] && exit 0
               make install
             '';
           };
