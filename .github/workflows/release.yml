@@ -28,16 +28,12 @@ jobs:
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Configure Nix Binary Cache
-        uses: cachix/install-nix-action@v31
-        with:
           extra_nix_config: |
             trusted-public-keys = nixpkgs-terraform.cachix.org-1:8Sit092rIdAVENA3ZVeH9hzSiqI/jng6JiCrQ1Dmusw= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
             substituters = https://nixpkgs-terraform.cachix.org https://cache.nixos.org/
 
       - name: Nix Install Deps
-        run: nix build --no-link .#devShells.$(nix eval --impure --raw --expr 'builtins.currentSystem').default
+        run: nix build --accept-flake-config --no-link .#devShells.$(nix eval --impure --raw --expr 'builtins.currentSystem').default
 
       - name: Lint Code
         shell: 'nix develop -c bash -e {0}'
