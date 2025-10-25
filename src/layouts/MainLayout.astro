@@ -77,7 +77,7 @@ const { title, description, openGraph, twitter, extend } = Astro.props
       }
 
       window.nvd = {
-        ...(window.nvd ?? {}),
+        ...window.nvd,
         fetchTheme,
         toggleTheme,
         updateTheme,

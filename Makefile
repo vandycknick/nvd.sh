@@ -4,21 +4,9 @@ BUILD_DIR		:= $(shell pwd)/dist
 INFRA_DIR		:= $(shell pwd)/infra
 SHA_256			:= $(shell git rev-parse --short HEAD)
 
-.PHONY: setup
-setup:
-	# @$(MAKE) setup.yarn
-	@$(MAKE) install.yarn
-
-.PHONY: setup.yarn
-setup.yarn:
-	corepack enable
-	corepack install
-	yarn --version
-	yarn config get cacheFolder
-
-.PHONY: install.yarn
-install.yarn:
-	yarn --immutable
+.PHONY: install
+install:
+	pnpm install
 
 .PHONY: clean
 clean:
@@ -27,7 +15,7 @@ clean:
 
 .PHONY: dev
 dev:
-	@yarn dev
+	@pnpm run dev
 
 .PHONY: check
 check:
@@ -36,19 +24,15 @@ check:
 
 .PHONY: check.types
 check.types:
-	yarn tsc --noEmit
+	pnpm exec tsc --noEmit
 
 .PHONY: check.lint
 check.lint:
-	yarn eslint -c ./eslint.config.js ./src
-
-.PHONY: check.fixlint
-check.fixlint:
-	yarn eslint . --ext .ts --ext .tsx --ext .js --ext .jsx --ext .mjs --ext .json --ext .astro --ignore-path .gitignore --fix
+	oxlint
 
 .PHONY: check.app
 check.app:
-	@yarn astro check
+	@pnpm run astro check
 	$(MAKE) check.types
 	$(MAKE) check.lint
 
@@ -61,15 +45,15 @@ check.infra:
 
 .PHONY: build
 build:
-	@yarn build
+	@pnpm build
 
 .PHONY: preview
 preview: build
-	@yarn preview
+	@pnpm preview
 
 .PHONY: deploy
 deploy:
-	@yarn workspace @nvd.sh/deployer execute --domain staging.nvd.sh --prefix ${SHA_256} --directory ${BUILD_DIR}
+	@pnpm --filter @nvd.sh/deployer run execute --domain staging.nvd.sh --prefix ${SHA_256} --directory ${BUILD_DIR}
 
 .PHONY: infra.init
 infra.init:

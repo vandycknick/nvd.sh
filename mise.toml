@@ -1,4 +1,0 @@
-[tools]
-node = "24"
-terraform = "1.12"
-yarn = "4.9.2"
