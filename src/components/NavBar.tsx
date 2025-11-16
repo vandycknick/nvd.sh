@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { Home, Search } from "lucide-react"
 import { cn } from "@/lib/utils"
 import {

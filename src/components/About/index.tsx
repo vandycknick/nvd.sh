@@ -1,7 +1,7 @@
 import { Container } from "@/components/Container"
 import { SocialLink } from "@/components/About/SocialLink"
 import { Resume } from "@/components/About/Resume"
-import { TwitterIcon, GitHubIcon, LinkedInIcon } from "@/components/Icons"
+import { TwitterIcon, GithubIcon, LinkedinIcon } from "@/components/Icons"
 import { MailOpenIcon } from "lucide-react"
 
 export function About() {
@@ -86,19 +86,26 @@ export function About() {
             <SocialLink
               href="https://twitter.com/vandycknick"
               icon={TwitterIcon}
+              fill="fill-zinc-100 dark:fill-zinc-500"
+              stroke="stroke-zinc-400  dark:stroke-zinc-700"
+              className="mt-4"
             >
               Follow on Twitter
             </SocialLink>
             <SocialLink
               href="https://github.com/vandycknick"
-              icon={GitHubIcon}
+              icon={GithubIcon}
+              fill="fill-zinc-100 dark:fill-zinc-500"
+              stroke="stroke-zinc-400  dark:stroke-zinc-700"
               className="mt-4"
             >
               Follow on GitHub
             </SocialLink>
             <SocialLink
               href="https://www.linkedin.com/in/nickvandyck/"
-              icon={LinkedInIcon}
+              icon={LinkedinIcon}
+              fill="fill-zinc-100 dark:fill-zinc-500"
+              stroke="stroke-zinc-400  dark:stroke-zinc-700"
               className="mt-4"
             >
               Follow on LinkedIn

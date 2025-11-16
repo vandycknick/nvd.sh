@@ -5,6 +5,7 @@ import MainLayout from "@/layouts/MainLayout.astro"
 import { Greeting } from "@/components/Home/Greeting"
 import { LatestBlogPosts } from "@/components/Home/LatestBlogPosts"
 import { DotMatrixThemedWebGLAnimation } from "@/components/Home/DotMatrix"
+import { Socials } from "@/components/Home/Socials"
 import "../styles/global.css"
 
 const allBlogPosts = await getCollection("blog", (post) => !post.data.draft)
@@ -43,10 +44,40 @@ const latestPosts = featuredPosts.map((post) => ({
     >
     </div>
   </div>
-  <Greeting
-    twitterUrl="https://twitter.com/vandycknick"
-    githubUrl="https://github.com/vandycknick"
-    linkedinUrl="https://www.linkedin.com/in/nickvandyck/"
-  />
+  <section
+    class="relative mx-auto max-w-7xl px-8 min-h-[calc(100vh-150px)] flex justify-center items-center"
+  >
+    <div class="max-w-2xl">
+      <h1
+        class="text-4xl text-center font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl mb-6"
+      >
+        <span class="not-italic">👋</span> Hi, I'm Nick!
+      </h1>
+      <div class="flex justify-center">
+        <div class="relative mb-2">
+          <span
+            class="absolute inset-0 rounded-full bg-gradient-to-tr from-teal-500 via-green-500 to-emerald-400 opacity-50 blur-lg animate-glow"
+          ></span>
+          <img
+            src="/images/me.jpg"
+            alt="avatar"
+            class="relative size-32 rounded-full border-2 shadow-xl z-10"
+          />
+        </div>
+      </div>
+      <p
+        class="mt-3 mb-6 text-sm italic text-center text-black dark:text-white max-w-md"
+      >
+        My perpetually changing, personal waste of cyberspace.
+        <!-- <span class="block"> Come find me on.</span> -->
+      </p>
+      <p
+        class="mt-3 mb-3 text-xs text-center text-black dark:text-white max-w-md"
+      >
+        Come find me on.
+      </p>
+      <Socials client:load />
+    </div>
+  </section>
   <LatestBlogPosts posts={latestPosts} />
 </MainLayout>

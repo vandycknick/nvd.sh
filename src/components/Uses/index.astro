@@ -8,15 +8,16 @@ import { ToolsSection, Tool } from "@/components/Uses/Tools"
       My personal computing device. I mostly use it for some lightweight
       browsing or the occasional personal project. It has an Intel Core
       i7-1165G7, 40Gb's of RAM and a 1TB SSD. I solely run Linux on this device,
-      and for the past two years, I've been enjoying PopOS!
+      my main OS of choice is Arch Linux!
     </Tool>
-    <Tool title="16” MacBook Pro, i7, 32GB RAM (2019)">
-      Probably one of the last intel-based Macbooks ever made. This is what I
-      use for work on a day-to-day basis. I've heard lots of great stuff about
-      the new M1 Macbooks. But my workflow still requires an Intel CPU, so I
-      hope to keep rocking this machine for a few more years. The worst thing
-      about this device is that it has a touch bar, which is an absolute
-      disaster to use effectively.
+    <Tool title="14” Apple M3 Pro, 36GB RAM (2023)">
+      My corporate-issue battle station is a 14” MacBook Pro (2023) with an M3
+      Pro and 36 GB of RAM. macOS isn’t exactly my natural ecosystem, so I strip
+      it down to the essentials. I run Aerospace as my tiling window manager to
+      wrestle macOS into something that behaves like a real workstation. Beyond
+      that it’s mostly terminals, browsers, and the tooling I need to get code
+      shipped no fancy Mac apps, no glossy workflows, just the basics wired
+      together so I can stay productive.
     </Tool>
     <Tool title="Logitech MX Master 3S, Wireless Mouse">
       For the longest time, I was using an Apple Magic Mouse. I got it for free,
@@ -31,19 +32,28 @@ import { ToolsSection, Tool } from "@/components/Uses/Tools"
   </ToolsSection>
   <ToolsSection title="Development tools">
     <Tool title="NeoVim">
-      I moved back to Vim at the beginning of 2023 after watching the
-      Primeagen's Neovim from scratch Video. I got my NeoVim tuned just the way
-      I like and got LSPs for all the languages I work in daily. Look at my
+      My editor of choice, and honestly the tool I probably spend the most hours
+      inside. I run a heavily tuned Neovim setup with custom plugins, LSP
+      integration, treesitter, and a bunch of quality-of-life tweaks baked into
+      my dotfiles. Whether I’m doing quick edits or full project work, Neovim
+      loads instantly and behaves exactly the same across macOS and Linux, which
+      makes hopping between machines completely frictionless. It’s fast,
+      scriptable, predictable — basically everything I want in an editor. Look
+      at my
       <a
-        href="https://github.com/vandycknick/dotfiles"
+        href="https://github.com/vandycknick/dotfiles/.config/nvim"
         class="font-medium text-teal-500">dotfiles</a
       > for a little peek at my configuration.
     </Tool>
-    <Tool title="Visual Studio Code">
-      This has been my editor of choice for ages; I started using it when
-      TypeScript and JavaScript were all the languages it supported. Nowadays, I
-      have it installed as a backup for when my Vim knowledge isn't immediately
-      cutting it.
+    <Tool title="Tmux">
+      This is the backbone of my terminal workflow. I pretty much live inside
+      tmux sessions all day — split panes everywhere, long-running processes
+      tucked into background windows, and a handful of permanent sessions that
+      survive reboots and context switches. Thanks to my <a
+        href="https://github.com/vandycknick/dotfiles/.config/tmux"
+        class="font-medium text-teal-500">dotfiles</a
+      > , tmux lands on any machine I touch (macOS or Linux) with my full setup:
+      keybindings, plugins, catppuccin colors, the whole thing.
     </Tool>
   </ToolsSection>
   <ToolsSection title="Productivity">
@@ -52,10 +62,6 @@ import { ToolsSection, Tool } from "@/components/Uses/Tools"
       Nowadays, I've settled on Obsidian. I love the simplicity it brings to
       note-taking and allowing my notes to stay private. It's my new second
       brain!
-    </Tool>
-    <Tool title="Thunderbird">
-      A really old email client that I always keep coming back to. Not much to
-      say about it other than that it works (kinda).
     </Tool>
   </ToolsSection>
 </div>
