@@ -2,8 +2,9 @@
   description = "website";
 
   inputs = {
-    nixpkgs-terraform.url = "github:stackbuilders/nixpkgs-terraform";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-terraform.url =
+      "github:stackbuilders/nixpkgs-terraform/f2731398b3c4c7086e215f4adf0bda243977ecb1";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     systems.url = "github:nix-systems/default";
   };
 
