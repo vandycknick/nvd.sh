@@ -7,6 +7,7 @@ categories:
   - tailscale
   - grafana
 cover: ../../images/placeholder.png
+draft: true
 ---
 
 ## Introduction
