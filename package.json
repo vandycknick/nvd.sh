@@ -33,7 +33,7 @@
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "disqus-react": "^1.1.7",
-    "lucide-react": "^0.555.0",
+    "lucide-react": "^0.556.0",
     "mdast-util-to-string": "^4.0.0",
     "motion": "^12.23.25",
     "react": "^19.2.1",
