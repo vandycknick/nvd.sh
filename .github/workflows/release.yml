@@ -63,7 +63,7 @@ jobs:
         run: make build
 
       - name: Upload App
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: app-web
           path: ./dist
