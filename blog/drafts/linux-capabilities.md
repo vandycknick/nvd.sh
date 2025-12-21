@@ -2,7 +2,8 @@
 title: "Securing Linux containers with capabilities"
 description: .
 date: 2021-02-05T20:00:00+01:00
-categories: [docker, linux, capabilities, containers]
+category: containerization
+tags: [docker, linux, capabilities, containers]
 draft: true
 cover: ../images/placeholder.png
 ---

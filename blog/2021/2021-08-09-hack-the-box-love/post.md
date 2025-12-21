@@ -3,7 +3,9 @@ title: "Hack The Box - Love"
 description: In this post, I'll walk you through Love, an easy-level Windows machine on Hack the Box.
 date: 2021-08-09T20:00:00+01:00
 slug: hack-the-box-love
-categories: [hack-the-box, writeup, love, windows]
+category: hack-the-box
+tags:
+  - windows
 cover: ./images/cover.jpg
 ---
 

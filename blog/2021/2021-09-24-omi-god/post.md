@@ -3,7 +3,11 @@ title: Experimenting with the OMIGOD vulnerabilities!
 description: Being able to experiment with vulnerabilities is crucial to gain a deeper understanding of them. In this post, we'll look at creating an environment with a vulnerable version of the OMI agent.
 slug: omi-god
 date: 2021-09-24T20:00:00+01:00
-categories: [linux, azure, omigod]
+category: security
+tags:
+  - linux
+  - azure
+  - omigod
 cover: ./images/cover.jpg
 ---
 

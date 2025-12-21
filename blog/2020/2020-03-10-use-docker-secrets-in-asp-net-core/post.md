@@ -3,7 +3,12 @@ title: Docker secrets in ASP.NET Core
 description: In this post, I want to show you a simple and different way to share secrets to your application. What are docker secrets and how can I start using them in my ASP.NET Core application? Keep reading 😄.
 date: 2020-03-10T20:00:00+01:00
 slug: use-docker-secrets-in-asp-net-core
-categories: [dotnet, aspnet, docker, secrets]
+category: technology
+tags:
+  - dotnet
+  - aspnet
+  - docker
+  - secrets]
 cover: ./images/cover.jpg
 ---
 

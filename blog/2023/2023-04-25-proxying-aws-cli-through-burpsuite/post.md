@@ -3,7 +3,8 @@ title: "Proxying the AWS CLI through Burp Suite."
 description: In this post, I walk you through how to configure the AWS CLI to proxy all its requests through Burp Suite. It's an exciting way to learn how the CLI works internally or could be helpful when debugging a weird edge case.
 slug: proxying-aws-through-burp
 date: 2023-04-25T20:00:00+01:00
-categories: [aws, cli, burpsuite, proxy, internals]
+category: technology
+tags: [aws, cli, burpsuite, proxy, internals]
 cover: ./images/cover.png
 ---
 

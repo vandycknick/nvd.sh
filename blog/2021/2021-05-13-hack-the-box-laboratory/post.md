@@ -3,8 +3,12 @@ title: "Hack The Box - Laboratory"
 description: In this post, I'll walk you through Laboratory, an easy-level Linux machine on Hack the Box. It has a GitLab CVE vulnerability for the user and uses path file checking on a setuid binary for the root flag.
 date: 2021-05-13T20:00:00+01:00
 slug: hack-the-box-laboratory
-categories:
-  [hack-the-box, writeup, laboratory, gitlab, python, ruby, cve-2020-10977]
+category: hack-the-box
+tags:
+  - gitlab
+  - python
+  - ruby
+  - cve-2020-10977
 cover: ./images/cover.jpg
 ---
 
