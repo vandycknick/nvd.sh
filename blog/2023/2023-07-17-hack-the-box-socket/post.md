@@ -1,5 +1,5 @@
 ---
-title: "Hack The Box - Socket"
+title: Socket
 description: Socket is a Medium Difficulty Linux machine that requires reversing a Linux/Windows desktop application. This reveals an endpoint that is vulnerable to `SQL` injection via a websocket. Dumping the database leaks hashes that, once cracked, yield `SSH` access to the box. Finally, a `PyInstaller` script can be executed with elevated privileges that grant root access to the machine.
 slug: hack-the-box-socket
 date: 2023-07-17T20:00:00+01:00

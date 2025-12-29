@@ -25,10 +25,7 @@ const InnerContainer = function InnerContainer({
   ...props
 }: Props<"div">) {
   return (
-    <div
-      className={clsx("relative px-4 sm:px-8 lg:px-12", className)}
-      {...props}
-    >
+    <div className={clsx("relative px-4 px-8 lg:px-12", className)} {...props}>
       <div className="mx-auto lg:max-w-5xl">{children}</div>
     </div>
   )

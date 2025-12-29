@@ -1,5 +1,5 @@
 ---
-title: "Hack The Box - Soccer"
+title: Soccer
 description: This is a write-up of Soccer, a CTF challenge on the Hack the Box platform. It's an easy-level Linux machine where good enumeration is key. A misconfigured file manager grants access to the box. This reveals a hidden side with a SQL vulnerability that allows to pivot to a more privileged user. With doas configured for this user, I then craft an exploit to get access to root.
 slug: hack-the-box-soccer
 date: 2023-06-13T20:00:00+01:00

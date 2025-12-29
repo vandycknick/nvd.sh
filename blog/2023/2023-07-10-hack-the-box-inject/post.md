@@ -1,5 +1,5 @@
 ---
-title: "Hack The Box - Inject"
+title: Inject
 description: Inject is an easily level Linux challenge on Hack the box. It exposes a website that is vulnerable to LFI. Which can be used to expose the Java source code and dependency file. Using Snyk shows a vulnerable dependency that allows remote code execution.. The root step is about abusing a cron that’s running the Ansible automation framework.
 slug: hack-the-box-inject
 date: 2023-07-10T20:00:00+01:00
