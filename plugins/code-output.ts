@@ -10,12 +10,25 @@ export function pluginCodeOutput() {
   return definePlugin({
     name: "Code output",
     baseStyles: `
+    .expressive-code .frame pre.command {
+      border-bottom: none;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
     .expressive-code .frame pre.output {
       display: block;
+      color: #EEFFFF;
       border: var(--ec-brdWd) solid var(--ec-brdCol);
-      border-top: var(--ec-brdWd) dashed var(--ec-brdCol);
-      padding: var(--ec-codePadBlk) 0;
+      border-top: none;
+      padding-top: 0px;
+      padding-right: var(--ec-codePadBlk);
+      padding-bottom: var(--ec-codePadBlk);
       padding-inline-start: var(--ec-codePadInl);
+    }
+    .expressive-code .frame pre.output.wrap div {
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+      min-width: min(20ch, var(--ecMaxLine, 20ch));
     }
       `,
     hooks: {
@@ -25,7 +38,7 @@ export function pluginCodeOutput() {
         const blockData = outputData.getOrCreateFor(context.codeBlock)
         const outputStart = context.codeBlock
           .getLines()
-          .findIndex((line) => !line.text.startsWith("$ "))
+          .findIndex((line) => !line.text.startsWith("$"))
         context.codeBlock
           .getLines(0, outputStart == -1 ? undefined : outputStart)
           .forEach((line) => {
@@ -61,10 +74,19 @@ export function pluginCodeOutput() {
         if (lastPre === -1) return
 
         const currentChildren = context.renderData.blockAst.children
+        const command = currentChildren[lastPre]
+        const wrapped = context.codeBlock.meta.includes("wrap")
+        if (command.type === "element") {
+          command.properties["className"] = [
+            ...((command.properties["className"] as any) ?? []),
+            "command",
+          ]
+        }
         const newChildren = [
-          ...currentChildren.slice(0, lastPre + 1),
+          ...currentChildren.slice(0, lastPre),
+          command,
           h(
-            "pre.output",
+            `pre.output${wrapped ? ".wrap" : ""}`,
             blockData.output.map((line) => h("div", `${line}`)),
           ),
           ...currentChildren.slice(lastPre + 1),

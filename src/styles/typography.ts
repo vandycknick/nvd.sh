@@ -203,40 +203,17 @@ export default {
             marginBottom: theme("spacing.4"),
           },
 
-          // Code blocks
-          pre: {
-            color: "var(--tw-prose-pre-code)",
-            fontSize: theme("fontSize.sm")[0],
-            fontWeight: theme("fontWeight.medium"),
-            // backgroundColor: "var(--tw-prose-pre-bg) !important",
-            borderRadius: theme("borderRadius.2xl"),
-            marginTop: theme("spacing.4"),
-            marginBottom: theme("spacing.4"),
-            padding: theme("spacing.4"),
-            overflowX: "auto",
-            border: "1px solid",
-            borderColor: "var(--tw-prose-pre-border)",
-          },
-          "pre code": {
-            display: "inline",
-            color: "inherit",
-            fontSize: "inherit",
-            fontWeight: "inherit",
-            backgroundColor: "transparent",
-            borderRadius: 0,
-            padding: 0,
-          },
-
           // Horizontal rules
           hr: {
             marginTop: theme("spacing.20"),
             marginBottom: theme("spacing.20"),
             borderTopWidth: "1px",
             borderColor: "var(--tw-prose-hr)",
-            "@screen lg": {
-              marginLeft: `calc(${theme("spacing.12")} * -1)`,
-              marginRight: `calc(${theme("spacing.12")} * -1)`,
-            },
+            // "@screen lg": {
+            //
+            //   marginLeft: `calc(${theme("spacing.12")} * -1)`,
+            //   marginRight: `calc(${theme("spacing.12")} * -1)`,
+            // },
           },
 
           // Tables

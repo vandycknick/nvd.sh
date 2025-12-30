@@ -1,6 +1,6 @@
 ---
 title: "Proxying the AWS CLI through Burp Suite."
-description: In this post, I walk you through how to configure the AWS CLI to proxy all its requests through Burp Suite. It's an exciting way to learn how the CLI works internally or could be helpful when debugging a weird edge case.
+description: Ever wondered what the AWS CLI is actually doing on the wire? In this post, I show you how to hook any CLI tool through Burp Suite so you can take a peek under the covers!
 slug: proxying-aws-through-burp
 date: 2023-04-25T20:00:00+01:00
 category: technology
@@ -8,46 +8,28 @@ tags: [aws, cli, burpsuite, proxy, internals]
 cover: ./images/cover.png
 ---
 
-HTTP Proxies such as Burp Suite or [mitmproxy](https://mitmproxy.org/) often get associated with web application security, pentesting or security research in general. But they can be handy tools during development, testing or when exploring APIs. I actually find myself using Burp a lot more for learning or reverse engineering a particular API. In this post, I want to show you how you can leverage Burp to take a look 'under the hood' and learn how the AWS CLI makes HTTP requests. But before we can get started, we must ensure we have the right tools installed. On a Mac with homebrew ready to go, this is relatively straightforward:
+Most people think of HTTP proxies like Burp Suite or [mitmproxy](https://mitmproxy.org/) as tools for web security or pentesting, but they are also great for development, testing, and exploring APIs. I often use Burp to learn about or reverse-engineer APIs. In this post, I'll show you how to use Burp to see how the AWS CLI sends HTTP requests. First, make sure you have the right tools installed. The installation is simple on any OS, but if you run into any issues make sure to read the [AWS CLI Getting Started Docs](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and the [Burp Suite Installation Guide](https://portswigger.net/burp/releases/community/latest).
 
-```ansi
+```bash
 brew install awscli burp-suite
 ```
 
-As usual, things are a bit more complicated on Linux, depending on what flavour you are currently typing on. The following links should help you get started:
+Once you start Burp, it creates a proxy at http://localhost:8080. With the AWS CLI ready, set these environment variables in your shell to send traffic through Burp Suite.
 
-- https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
-- https://portswigger.net/burp/releases/community/latest
-
-You can check if everything is installed correctly by running the following commands and verify you get roughly the same output:
-
-```ansi
-$ aws --version
-
-aws-cli/2.11.14 Python/3.11.3 Linux/6.1.0-kali7-amd64 exe/x86_64.kali.2023 prompt/off
-
-$ burpsuite --version
-
-Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
-2023.1.2-18945 Burp Suite Community Edition
-```
-
-Once Burp is up and running, it will have started a proxy on `http://localhost:8080`, and with the AWS CLI [configured correctly](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html), we can now add some environment variables to ensure traffic gets send to Burp Suite.
-
-```sh frame="none"
+```bash frame="none"
 export HTTP_PROXY=http://localhost:8080
 export HTTPS_PROXY=http://localhost:8080
 ```
 
-And that should be; let's try it and see if we can see requests to AWS coming into Burp.
+That’s all you need. Now, try it out and see if Burp shows any requests to AWS.
 
-```ansi wrap
+```bash withOutput wrap
 $ aws sts get-caller-identity
 
 SSL validation failed for https://sts.us-east-1.amazonaws.com/ [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self signed certificate in certificate chain (_ssl.c:992)
 ```
 
-And we get an SSL error! This is because for Burp Suite to be able to proxy HTTPS traffic, it needs to sign its own certificates. And CA it uses to create those certificates isn't trusted by default on your system. To fix this we need to download the CA from Burp and tell the AWS CLI that this CA can be trusted, pinky promise!
+You’ll see an SSL error. This happens because Burp Suite creates its own certificates for HTTPS traffic, but your system doesn’t trust its certificate authority by default. To fix this, download the CA certificate from Burp and tell the AWS CLI to trust it.
 
 ```sh frame="none"
 curl http://127.0.0.1:8080/cert --output ./certificate.cer
@@ -55,7 +37,7 @@ openssl x509 -inform der -in ./certificate.cer -out ./certificate.pem
 export AWS_CA_BUNDLE="$(pwd)/certificate.pem"
 ```
 
-And that's it, all traffic from the AWS CLI now flows through Burp:
+That’s it. Now, all traffic from the AWS CLI will go through Burp:
 
 ![Burp Suite Proxy Tab Example](./images/burp-example.png)
 
@@ -70,4 +52,4 @@ curl -s http://127.0.0.1:8080/cert | openssl x509 -inform der -out "$AWS_CA_BUND
 
 ## Conclusion
 
-What I like about this approach is that you can reuse the same principle to debug many other CLI tools as well. In the end, many CLI tools for popular services are just making HTTP requests back and forth. Quickly inspecting what's going on over the wire could be a valuable asset. Even more interesting is that many SDKs implement the same principle. If you are writing something in Node, Python, or any other language, the same trick will allow you to gain some valuable insights. As I showed earlier, the steps are a simple set `*_PROXY` environment variables to point to your HTTP proxy. And make the CLI or SDK trust the self-signed CA certificate. This last one will be different depending on the tool or language.
+The best part is that you can use this method to debug many other CLI tools. Most CLI tools for popular services just send HTTP requests, so checking the traffic can be very helpful. Many SDKs work the same way. If you’re coding in Node, Python, or another language, this trick can give you useful insights. As shown earlier, just set the \*\_PROXY environment variables to point to your HTTP proxy and make sure the CLI or SDK trusts the self-signed CA certificate. The details for trusting the certificate will vary by tool or language.

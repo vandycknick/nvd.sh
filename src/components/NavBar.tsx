@@ -141,7 +141,7 @@ const NavItemWrapper = ({
             e.preventDefault()
           }}
           className={cn(
-            "relative cursor-pointer text-sm md:text-base retina:text-sm font-semibold px-4 py-2 md:py-1 rounded-full transition-colors",
+            "relative cursor-pointer text-sm md:text-base retina:text-sm font-semibold px-4 py-2 rounded-full transition-colors",
             "text-foreground/80 hover:text-primary",
             active && "bg-muted text-primary",
             "self-stretch",
@@ -155,7 +155,7 @@ const NavItemWrapper = ({
         <button
           onClick={() => mitt.emit("search-it")}
           className={cn(
-            "relative cursor-pointer text-sm md:text-base retina:text-sm font-semibold px-4 py-2 md:py-1 rounded-full transition-colors",
+            "relative cursor-pointer text-sm md:text-base retina:text-sm font-semibold px-4 py-2 rounded-full transition-colors",
             "text-foreground/80 hover:text-primary",
             active && "bg-muted text-primary",
             "self-stretch",

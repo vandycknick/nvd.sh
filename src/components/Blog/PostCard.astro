@@ -8,21 +8,7 @@ interface Props {
   transition?: boolean
 }
 
-const { post, transition } = Astro.props
-
-const createTransitionLabels = () => {
-  if (transition === false) {
-    return { title: "", description: "", details: "" }
-  }
-
-  return {
-    title: `post-title-${post.slug}`,
-    description: `post-description-${post.slug}`,
-    details: `post-details-${post.slug}`,
-  }
-}
-
-const labels = createTransitionLabels()
+const { post } = Astro.props
 ---
 
 <a
@@ -44,13 +30,10 @@ const labels = createTransitionLabels()
         <p class="text-muted-foreground text-xs tracking-widest uppercase">
           {post.category}
         </p>
-        <h3 class="text-xl font-bold" transition:name={labels.title}>
+        <h3 class="text-xl font-bold">
           {post.title}
         </h3>
-        <p
-          class="text-muted-foreground line-clamp-5"
-          transition:name={labels.description}
-        >
+        <p class="text-muted-foreground line-clamp-5">
           {post.description}
         </p>
       </div>
