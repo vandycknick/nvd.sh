@@ -8,11 +8,27 @@ tags: [aws, cli, burpsuite, proxy, internals]
 cover: ./images/cover.png
 ---
 
+import { Tabs, TabItem } from '@/components/tabs.astro';
+
 Most people think of HTTP proxies like Burp Suite or [mitmproxy](https://mitmproxy.org/) as tools for web security or pentesting, but they are also great for development, testing, and exploring APIs. I often use Burp to learn about or reverse-engineer APIs. In this post, I'll show you how to use Burp to see how the AWS CLI sends HTTP requests. First, make sure you have the right tools installed. The installation is simple on any OS, but if you run into any issues make sure to read the [AWS CLI Getting Started Docs](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and the [Burp Suite Installation Guide](https://portswigger.net/burp/releases/community/latest).
 
-```bash
-brew install awscli burp-suite
-```
+<Tabs syncKey="package-manager">
+  <TabItem label="MacOS">
+    ```bash
+      brew install awscli burp-suite
+    ```
+  </TabItem>
+  <TabItem label="Arch">
+    ```bash
+      yay -S awscli burpsuite
+    ```
+  </TabItem>
+  <TabItem label="Nix">
+    ```bash
+      NIXPKGS_ALLOW_UNFREE=1 nix shell --impure nixpkgs#awscli2 nixpkgs#burpsuite
+    ```
+  </TabItem>
+</Tabs>
 
 Once you start Burp, it creates a proxy at http://localhost:8080. With the AWS CLI ready, set these environment variables in your shell to send traffic through Burp Suite.
 
