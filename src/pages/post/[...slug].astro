@@ -82,7 +82,6 @@ const next = items[(index + 1) % items.length]
     <div
       class="lg:mx-auto max-w-full lg:max-w-5xl w-full h-80 opacity-80 bg-center bg-cover lg:rounded-b-md"
       style={`background-image: url(${post.data.cover.src})`}
-      data-pagefind-meta={`cover:${post.data.cover.src}`}
     >
     </div>
 
@@ -114,20 +113,24 @@ const next = items[(index + 1) % items.length]
         {post.data.title}
       </h1>
       <section class="flex flex-col items-center">
-        <div class="flex pt-6" data-pagefind-ignore>
+        <div class="flex pt-6">
           <div class="flex justify-center items-center">
-            <CalendarIcon className="w-5 h-5 mr-1 font-bold text-white" />
-            <span class="font-bold text-white">
+            <CalendarIcon
+              className="w-5 h-5 mr-1 font-bold text-white text-sm"
+            />
+            <span class="font-bold text-white text-sm">
               {formatDate(date)}
             </span>
           </div>
           <div class="flex justify-center items-center px-4">
-            <EditIcon className="w-5 h-5 mr-1 font-bold text-white" />
-            <a class="font-bold text-white" href={editUrl}> edit post </a>
+            <EditIcon className="w-4 h-4 mr-1 font-bold text-white text-xs" />
+            <a class="font-bold text-white text-xs" href={editUrl}>
+              edit post
+            </a>
           </div>
           <div class="flex justify-center items-center">
-            <BookIcon className="w-5 h-5 mr-1 font-bold text-white" />
-            <span class="font-bold text-white">{readingTime}</span>
+            <BookIcon className="w-5 h-5 mr-1 font-bold text-white text-sm" />
+            <span class="font-bold text-white text-sm">{readingTime}</span>
           </div>
         </div>
       </section>
@@ -136,7 +139,7 @@ const next = items[(index + 1) % items.length]
 
   <Container className="pt-60">
     <article
-      class="mt-8 max-w-none prose dark:prose-invert prose-img:rounded-md prose-code:before:content-none prose-code:after:content-none"
+      class="my-8 max-w-none prose dark:prose-invert prose-img:rounded-md prose-code:before:content-none prose-code:after:content-none"
       transition:name="content-test"
       transition:animate="none"
     >
